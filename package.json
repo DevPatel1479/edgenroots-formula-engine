@@ -1,0 +1,29 @@
+{
+  "name": "edgenroots-formula-engine",
+  "version": "1.0.0",
+  "description": "Insert-only, versioned formula engine using Node.js, Express, MySQL and formula-interpreter",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/rounding.test.js tests/dependencyResolver.test.js tests/formulaEvaluator.test.js tests/interpreterAdapter.test.js tests/previewService.test.js tests/versionedRepository.test.js tests/concurrency.test.js tests/formulaService.test.js tests/workerTimeoutIntegration.test.js tests/formulaServiceAcceptance.test.js tests/previewAsOf.test.js",
+    "verify:env": "node scripts/verify-environment.js",
+    "smoke": "node scripts/smoke-test.js",
+    "benchmark:bulk": "node scripts/benchmark-bulk.js",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "formula-interpreter": "*",
+    "mysql2": "^3.12.0"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10",
+    "prettier-plugin-sql": "0.20.0"
+  }
+}
