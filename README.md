@@ -106,95 +106,23 @@ All assignment paths are exposed at the root exactly as specified. The same rout
 
 Base URL: `http://localhost:3000`.
 
-### Health check
+Health Check Endpoint: `http://localhost:3000/health`.
 
-```powershell
-curl.exe http://localhost:3000/health
-```
 
-### Create a formula — `POST /formulas`
+> 📘 **Full API reference:** see [`docs/API_README.md`](docs/API_README.md) for every endpoint's method, URL, request body, response body, and error responses.
 
-Formula text is JavaScript text ending in `return`. References to request inputs or other formula results use `EXTERNAL_VAR.name`.
+| Method | Endpoint | Purpose |
+| ------ | -------- | ------- |
+| `POST` | `/formulas` | Create a formula, or change one when `uuid` is sent |
+| `GET`  | `/formulas` | List current version of every formula |
+| `GET`  | `/formulas/:uuid/history` | All versions of one formula |
+| `POST` | `/formulas/:uuid/rollback` | Roll back to an older version (as a new row) |
+| `GET`  | `/formulas/:uuid/impact` | Formulas that depend on this one |
+| `POST` | `/formulas/:uuid/deactivate` | Deactivate a formula |
+| `POST` | `/formulas/preview` | Preview results for one record |
+| `POST` | `/formulas/preview/bulk` | Preview results for up to 500 records |
 
-```powershell
-curl.exe -X POST http://localhost:3000/formulas `
-  -H "Content-Type: application/json" `
-  -d '{"name":"commission","formulaText":"return EXTERNAL_VAR.amount * EXTERNAL_VAR.rate / 100;","sampleData":{"amount":2000,"rate":10},"createdBy":"admin@example.com"}'
-```
 
-Copy the returned `uuid` and `version_number` for the subsequent examples.
-
-### List current formulas — `GET /formulas`
-
-```powershell
-curl.exe http://localhost:3000/formulas
-```
-
-Returns one latest version per UUID from the `current_formulas` view, including inactive current versions.
-
-### Change a formula — `POST /formulas`
-
-Send the stable UUID and the version last read. A stale `expectedVersion` returns HTTP `409` and current version details.
-
-```powershell
-curl.exe -X POST http://localhost:3000/formulas `
-  -H "Content-Type: application/json" `
-  -d '{"uuid":"PASTE_UUID_HERE","expectedVersion":1,"name":"commission","formulaText":"return EXTERNAL_VAR.amount * EXTERNAL_VAR.rate / 100;","modifiedBy":"admin@example.com"}'
-```
-
-### Deactivate a formula — `POST /formulas/:uuid/deactivate`
-
-```powershell
-curl.exe -X POST http://localhost:3000/formulas/PASTE_UUID_HERE/deactivate `
-  -H "Content-Type: application/json" `
-  -d '{"expectedVersion":2,"modifiedBy":"admin@example.com"}'
-```
-
-If active formulas depend on it, deactivation returns `409 DEPENDENTS_EXIST` and includes those formulas. Use `"force": true` only when the breaking change is intentional.
-
-### Roll back to an old version — `POST /formulas/:uuid/rollback`
-
-Rollback copies the target version's formula/name/status into a **new** row; it never rewrites the old version.
-
-```powershell
-curl.exe -X POST http://localhost:3000/formulas/PASTE_UUID_HERE/rollback `
-  -H "Content-Type: application/json" `
-  -d '{"expectedVersion":3,"targetVersion":1,"modifiedBy":"admin@example.com"}'
-```
-
-### History — `GET /formulas/:uuid/history`
-
-```powershell
-curl.exe http://localhost:3000/formulas/PASTE_UUID_HERE/history
-```
-
-### Impact — `GET /formulas/:uuid/impact`
-
-```powershell
-curl.exe http://localhost:3000/formulas/PASTE_UUID_HERE/impact
-```
-
-Lists active formulas that directly or transitively depend on the target, with a `direct` flag for direct dependencies.
-
-### Preview one record — `POST /formulas/preview`
-
-```powershell
-curl.exe -X POST http://localhost:3000/formulas/preview `
-  -H "Content-Type: application/json" `
-  -d '{"data":{"amount":2000,"rate":10},"createdBy":"preview-client"}'
-```
-
-An optional `formulaUuids` array selects formulas plus their dependencies. When omitted (or empty), all active formulas are evaluated. Optional `asOf` must be an ISO-8601 timestamp, for example `"2026-10-15T10:00:00.000Z"`. The response includes each formula's version, status, result, explanation, error/duration, and a final `record` with successful formula values added.
-
-### Bulk preview — `POST /formulas/preview/bulk`
-
-```powershell
-curl.exe -X POST http://localhost:3000/formulas/preview/bulk `
-  -H "Content-Type: application/json" `
-  -d '{"records":[{"amount":2000,"rate":10},{"amount":500,"rate":8}],"createdBy":"bulk-client"}'
-```
-
-The endpoint accepts 1–500 records, uses one consistent formula snapshot for the request, validates all records before evaluation, writes run logs in one multi-row insert, and reports total/average time, failures, skipped results, records processed, and formula run count.
 
 ## 5. Acceptance scenario: commission, tax, total
 
