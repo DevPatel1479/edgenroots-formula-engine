@@ -1,0 +1,160 @@
+﻿TAP version 13
+# Subtest: two edits against the same base version yield one success and one 409 conflict
+ok 1 - two edits against the same base version yield one success and one 409 conflict
+  ---
+  duration_ms: 8.0107
+  type: 'test'
+  ...
+# Subtest: optimistic version checking reports current version details
+ok 2 - optimistic version checking reports current version details
+  ---
+  duration_ms: 1.8793
+  type: 'test'
+  ...
+# Subtest: dependency resolver orders a formula chain independently of creation order
+ok 3 - dependency resolver orders a formula chain independently of creation order
+  ---
+  duration_ms: 10.1525
+  type: 'test'
+  ...
+# Subtest: dependency resolver reports complete cycle path
+ok 4 - dependency resolver reports complete cycle path
+  ---
+  duration_ms: 1.9033
+  type: 'test'
+  ...
+# Subtest: dependency resolver catches absent input before evaluation
+ok 5 - dependency resolver catches absent input before evaluation
+  ---
+  duration_ms: 0.8276
+  type: 'test'
+  ...
+# Subtest: selected formula closure includes active dependencies
+ok 6 - selected formula closure includes active dependencies
+  ---
+  duration_ms: 1.1795
+  type: 'test'
+  ...
+# Subtest: interpreter numeric status 0 with data is normalized as success
+ok 7 - interpreter numeric status 0 with data is normalized as success
+  ---
+  duration_ms: 4.9043
+  type: 'test'
+  ...
+# Subtest: formula evaluator rounds the numeric result and explains used inputs
+ok 8 - formula evaluator rounds the numeric result and explains used inputs
+  ---
+  duration_ms: 7.0635
+  type: 'test'
+  ...
+# Subtest: formula evaluator turns a hung adapter into a FAILED timeout result
+ok 9 - formula evaluator turns a hung adapter into a FAILED timeout result
+  ---
+  duration_ms: 33.8057
+  type: 'test'
+  ...
+# Subtest: formula evaluator does not report interpreter failures as success
+ok 10 - formula evaluator does not report interpreter failures as success
+  ---
+  duration_ms: 1.2305
+  type: 'test'
+  ...
+# Subtest: rollback to an inactive version is rejected when it would break active dependents
+ok 11 - rollback to an inactive version is rejected when it would break active dependents
+  ---
+  duration_ms: 7.4741
+  type: 'test'
+  ...
+# Subtest: invalid formula is rejected before inserting a formula row
+ok 12 - invalid formula is rejected before inserting a formula row
+  ---
+  duration_ms: 9.3558
+  type: 'test'
+  ...
+# Subtest: duplicate active formula name is rejected before inserting a row
+ok 13 - duplicate active formula name is rejected before inserting a row
+  ---
+  duration_ms: 1.3997
+  type: 'test'
+  ...
+# Subtest: deactivating a formula with active dependents is rejected without force
+ok 14 - deactivating a formula with active dependents is rejected without force
+  ---
+  duration_ms: 5.449
+  type: 'test'
+  ...
+# Subtest: successful rollback appends a new version containing the target version values
+ok 15 - successful rollback appends a new version containing the target version values
+  ---
+  duration_ms: 4.9509
+  type: 'test'
+  ...
+# Subtest: interpreter adapter transforms external variables and passes the correct arguments
+ok 16 - interpreter adapter transforms external variables and passes the correct arguments
+  ---
+  duration_ms: 6.5467
+  type: 'test'
+  ...
+# Subtest: as-of preview uses the formula versions that were current at that timestamp
+ok 17 - as-of preview uses the formula versions that were current at that timestamp
+  ---
+  duration_ms: 9.4686
+  type: 'test'
+  ...
+# Subtest: a failed formula is FAILED, its dependent is SKIPPED, and an independent formula succeeds
+ok 18 - a failed formula is FAILED, its dependent is SKIPPED, and an independent formula succeeds
+  ---
+  duration_ms: 53.2206
+  type: 'test'
+  ...
+# Subtest: bulk preview refuses more than 500 records before running formulas
+ok 19 - bulk preview refuses more than 500 records before running formulas
+  ---
+  duration_ms: 2.9035
+  type: 'test'
+  ...
+# Subtest: roundToTwo removes floating point representation noise
+ok 20 - roundToTwo removes floating point representation noise
+  ---
+  duration_ms: 3.4016
+  type: 'test'
+  ...
+# Subtest: roundToTwo refuses non-finite numbers
+ok 21 - roundToTwo refuses non-finite numbers
+  ---
+  duration_ms: 1.5109
+  type: 'test'
+  ...
+# Subtest: generic saveRecord creates version 1, then appends version 2 preserving creation metadata
+ok 22 - generic saveRecord creates version 1, then appends version 2 preserving creation metadata
+  ---
+  duration_ms: 15.0427
+  type: 'test'
+  ...
+# Subtest: generic saveRecord inserts an array with one multi-row INSERT statement
+ok 23 - generic saveRecord inserts an array with one multi-row INSERT statement
+  ---
+  duration_ms: 1.074
+  type: 'test'
+  ...
+# Subtest: generic saveRecord rejects stale expected versions with 409
+ok 24 - generic saveRecord rejects stale expected versions with 409
+  ---
+  duration_ms: 3.5636
+  type: 'test'
+  ...
+# Subtest: real worker timeout fails one formula, skips its dependent, and runs independent formulas
+ok 25 - real worker timeout fails one formula, skips its dependent, and runs independent formulas
+  ---
+  duration_ms: 423.2476
+  type: 'test'
+  ...
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1359.672

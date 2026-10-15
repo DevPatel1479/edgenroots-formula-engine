@@ -1,0 +1,374 @@
+{
+  "info": {
+    "_postman_id": "30553814-0293-42b7-b2bb-f50d60066010",
+    "name": "Edgenroots Updated Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "46899252"
+  },
+  "item": [
+    {
+      "name": "Commission Formula Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"commission_test_formula\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.amount * EXTERNAL_VAR.rate / 100;\",\r\n  \"sampleData\": {\r\n    \"amount\": 2000,\r\n    \"rate\": 10\r\n  },\r\n  \"createdBy\": \"admin@example.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tax Formula Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"name\": \"tax\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.commission * 0.18;\",\r\n  \"sampleData\": {\r\n    \"commission\": 200\r\n  },\r\n  \"createdBy\": \"admin@example.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Total Formula Create",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"name\": \"total\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.commission + EXTERNAL_VAR.tax;\",\r\n  \"sampleData\": {\r\n    \"commission\": 200,\r\n    \"tax\": 36\r\n  },\r\n  \"createdBy\": \"admin@example.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List current formulas",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Preview one record",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"data\": {\r\n    \"amount\": 2000,\r\n    \"rate\": 10\r\n  },\r\n  \"formulaUuids\": [\r\n    \"859ceb99-f8f6-46cf-95cf-f22b92aa7221\",\r\n    \"cd7c19a3-2f9b-4563-b945-e0d950f69685\"\r\n  ],\r\n//   \"asOf\": \"2026-10-14T10:00:00.000Z\",\r\n  \"createdBy\": \"postman-client\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas/preview",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "preview"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Bulk preview",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"records\": [\r\n    { \"amount\": 1000, \"rate\": 10 },\r\n    { \"amount\": 1500, \"rate\": 10 },\r\n    { \"amount\": 2000, \"rate\": 10 }\r\n  ],\r\n  \"formulaUuids\": [\r\n    \"c6240d8a-b837-4e01-a213-9e657b685af3\",\r\n    \"dc2fc3b5-daef-444a-b089-39958880f472\"\r\n  ],\r\n  \"createdBy\": \"benchmark-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas/preview/bulk",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "preview", "bulk"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Formula history",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/formulas/e18ac17b-941a-4ad2-93ce-6f7375edbfc2/history",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "e18ac17b-941a-4ad2-93ce-6f7375edbfc2", "history"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Change a formula",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"uuid\": \"e18ac17b-941a-4ad2-93ce-6f7375edbfc2\",\r\n  \"expectedVersion\": 3,\r\n  \"name\": \"tax\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.commission * 0.15;\",\r\n  \"modifiedBy\": \"admin@example.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Roll back a formula",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"expectedVersion\": 2,\r\n  \"targetVersion\": 1,\r\n  \"modifiedBy\": \"admin@example.com\"\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas/e18ac17b-941a-4ad2-93ce-6f7375edbfc2/rollback",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "e18ac17b-941a-4ad2-93ce-6f7375edbfc2", "rollback"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Dependency impact",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/formulas/4ef438be-3e46-480a-a55e-690cb9c3755d/impact",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "4ef438be-3e46-480a-a55e-690cb9c3755d", "impact"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Deactivate Formula",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"expectedVersion\": 2,\r\n//   \"force\" : true,\r\n  \"modifiedBy\": \"admin@example.com\"\r\n  \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas/e18ac17b-941a-4ad2-93ce-6f7375edbfc2/deactivate",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "e18ac17b-941a-4ad2-93ce-6f7375edbfc2", "deactivate"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Stale Formula Test",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"uuid\": \"fef12a7d-82dd-470b-8848-cfc10b41e2b4\",\r\n  \"expectedVersion\": 1,\r\n  \"name\": \"postman_stale_test\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.amount * 4;\",\r\n  \"modifiedBy\": \"postman-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Cycle detection",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"postman_cycle_c\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.postman_cycle_a + 1;\",\r\n  \"sampleData\": {\r\n    \"postman_cycle_a\": 1\r\n  },\r\n  \"createdBy\": \"postman-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid formula",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"postman_invalid_formula\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.amount * ;\",\r\n  \"sampleData\": {\r\n    \"amount\": 100\r\n  },\r\n  \"createdBy\": \"postman-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Timeout and skipped dependencies",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"postman_independent_test\",\r\n  \"formulaText\": \"return EXTERNAL_VAR.amount * 2;\",\r\n  \"sampleData\": {\r\n    \"amount\": 10\r\n  },\r\n  \"createdBy\": \"postman-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Preview the formulas",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"data\": {\r\n    \"amount\": 10,\r\n    \"shouldHang\": true\r\n  },\r\n  \"formulaUuids\": [\r\n    \"bf96c481-6c5b-4d17-a2d1-bc86177c564c\",\r\n    \"89cea6f8-8989-4229-bf16-ef5b0e725cc4\",\r\n    \"9aaffa1d-dfd6-41d3-baa3-26bdbe046d20\"\r\n  ],\r\n  \"createdBy\": \"postman-test\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/formulas/preview",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["formulas", "preview"]
+        }
+      },
+      "response": []
+    }
+  ]
+}
